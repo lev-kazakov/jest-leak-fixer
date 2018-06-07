@@ -1,0 +1,19 @@
+{
+  "name": "jest-leak",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "lodash": "^4.17.10",
+    "react": "^16.4.0",
+    "webpack": "^4.11.1"
+  },
+  "devDependencies": {
+    "jasmine": "^3.1.0",
+    "jest": "^23.1.0"
+  },
+  "scripts": {
+    "jest": "jest --runInBand",
+    "jasmine": "jasmine *.test.js"
+  }
+}
