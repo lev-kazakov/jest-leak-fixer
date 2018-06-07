@@ -1,3 +1,5 @@
+### NO LEAK WHEN NO EXTERNAL DEPS
+
 # Jest memory leak
 When running on node. Tested against:
 * jest 23.0.1
