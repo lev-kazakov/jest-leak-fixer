@@ -1,4 +1,4 @@
-require('import-fresh')('graceful-fs')
+require('import-fresh')('./patcher')
 
 
 it('print memory usage', () => {
