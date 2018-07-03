@@ -14,7 +14,7 @@ PRs are welcome.
 ### Apply
 ##### Via CLI
 _package.json_
-```json
+```javascript
 {
   ...
   "scripts": {
