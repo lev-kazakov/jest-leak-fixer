@@ -1,17 +1,27 @@
 {
-  "name": "jest-leak",
-  "version": "1.0.0",
+  "name": "jest-leak-fixer",
+  "version": "0.0.2",
+  "description": "fixes https://github.com/facebook/jest/issues/6399",
   "main": "index.js",
   "license": "MIT",
-  "dependencies": {
-    "import-fresh": "^2.0.0"
-  },
+  "dependencies": {},
   "devDependencies": {
+    "agent-base": "^4.2.0",
+    "graceful-fs": "^4.1.11",
+    "import-fresh": "^2.0.0",
     "jasmine": "^3.1.0",
-    "jest": "^23.1.0"
+    "jest": "^23.1.0",
+    "jest-leak-fixer": "latest",
+    "weak": "^1.0.1"
   },
   "scripts": {
-    "jest": "jest --runInBand",
-    "jasmine": "jasmine *.test.js"
+    "test": "jest-fixer-apply; yarn test:detect-leaks; jest-fixer-restore",
+    "test:detect-leaks": "jest --detectLeaks ./test/test-with-dependencies",
+    "jest": "jest --runInBand ./test/test-no-dependencies",
+    "jasmine": "jasmine ./test/test-no-dependencies/*.test.js"
+  },
+  "bin": {
+    "jest-fixer-apply": "./bin/apply",
+    "jest-fixer-restore": "./bin/restore"
   }
 }

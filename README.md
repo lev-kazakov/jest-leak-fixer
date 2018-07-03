@@ -1,19 +1,44 @@
-# Jest memory leak
-When running on node. Tested against:
-* jest 23.0.1
-* node 8.7.0
+# Jest Memory Leak Fixer
 
-Suspecting a leak in [jest-runtime's](https://github.com/facebook/jest/blob/00a8117fd3df64e876041776c29b71fb9749efbb/packages/jest-runtime/src/index.js#L271) module registry.
+Inspired by @Telokis [comment](https://github.com/facebook/jest/issues/6399#issuecomment-399888409) in [jest/issues/6399](https://github.com/facebook/jest/issues/6399).
 
-### 1. Build
-`yarn`
+### Install
+`yarn add --dev jest-leak-fixer`
 
-### 2. Run yarn
-`yarn jest`
+### Apply
+##### Via CLI
+_package.json_
+```json
+{
+  ...
+  "scripts": {
+    ...
+    "test": "jest-fixer-apply; yarn test:detect-leaks; jest-fixer-restore",
+    "test:detect-leaks": "jest --detectLeaks",
+  }
+}
+```
+##### Via `globalSetup`/`globalTeardown` configuration
+_globalSetup.js_
+```javascript
+'use strict'
+const jestLeakFixer = require('jest-leak-fixer')
+...
 
-(you will see `process.memoryUsage().heapUsed` increasing)
+module.exports = () => {
+    jestLeakFixer.apply()
+    ...
+}
+```
 
-### 3. Run jasmine
-`yarn jasmine`
+_globalTeardown.js_
+```javascript
+'use strict'
+const jestLeakFixer = require('jest-leak-fixer')
+...
 
-(you will see `process.memoryUsage().heapUsed` is stable)
+module.exports = () => {
+    ...
+    jestLeakFixer.restore()
+}
+```
