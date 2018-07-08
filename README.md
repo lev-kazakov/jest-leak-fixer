@@ -19,7 +19,7 @@ _package.json_
   ...
   "scripts": {
     ...
-    "test": "jest-fixer-apply; yarn test:detect-leaks; jest-fixer-restore",
+    "test": "jest-fixer-apply && yarn test:detect-leaks; test_exit_code=$? && jest-fixer-restore; exit $test_exit_code",
     "test:detect-leaks": "jest --detectLeaks",
   }
 }
